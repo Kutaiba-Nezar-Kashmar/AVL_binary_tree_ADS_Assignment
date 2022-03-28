@@ -3,6 +3,9 @@ public class BinaryTreeNode<T> {
     private BinaryTreeNode<T> leftChild;
     private BinaryTreeNode<T> rightChild;
 
+    public BinaryTreeNode() {
+    }
+
     public BinaryTreeNode(T element) {
         this.element = element;
     }
