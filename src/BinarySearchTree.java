@@ -22,21 +22,26 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
         return false;
     }
 
-    public BinarySearchTreeNode<T> findMin() {
+    public T findMin() {
         BinarySearchTreeNode<T> node;
         node = root;
 
         while (node.getLeftChild() != null) {
             node = (BinarySearchTreeNode<T>) node.getLeftChild();
-
         }
-        return node;
 
+        return node.getElement();
     }
 
     public T findMax() {
-        //TODO: implement
-        return null;
+        BinarySearchTreeNode<T> node;
+        node = root;
+
+        while (node.getRightChild() != null) {
+            node = (BinarySearchTreeNode<T>) node.getRightChild();
+        }
+
+        return node.getElement();
     }
 
     public boolean containsElement(T element) {

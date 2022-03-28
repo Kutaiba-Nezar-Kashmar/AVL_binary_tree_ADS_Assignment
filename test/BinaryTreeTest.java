@@ -1,12 +1,16 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BinaryTreeTest {
 
 
     @Test
-    public void height_TreeRootIsNull_ReturnsMinusOne(){
+    public void height_TreeRootIsNull_ReturnsMinusOne() {
         // Arrange
         BinaryTree<Integer> tree = new BinaryTree<>();
 
@@ -18,7 +22,7 @@ class BinaryTreeTest {
     }
 
     @Test
-    public void height_TreeHasHeightOfFour_ReturnsFour(){
+    public void height_TreeHasHeightOfFour_ReturnsFour() {
         // Arrange
         BinaryTreeNode<Integer> root = new BinaryTreeNode<>(4);
         BinaryTreeNode<Integer> node1 = new BinaryTreeNode<>(3);
@@ -42,7 +46,7 @@ class BinaryTreeTest {
     }
 
     @Test
-    public void height_RootIsLeaf_ReturnsZero(){
+    public void height_RootIsLeaf_ReturnsZero() {
         // Arrange
         BinaryTreeNode<Integer> root = new BinaryTreeNode<>(2);
 
@@ -53,7 +57,9 @@ class BinaryTreeTest {
         assertEquals(0, tree.height());
     }
 
-    public void inOrder_InOrderTraversal_ReturnsElementsInAscendingOrder(){
+    // TODO: Move this to BinarySearchTree test
+    @Test
+    public void inOrder_InOrderTraversal_ReturnsElementsInAscendingOrder() {
         // Arrange
         BinaryTreeNode<Integer> root = new BinaryTreeNode<>(4);
         BinaryTreeNode<Integer> node1 = new BinaryTreeNode<>(3);
@@ -68,6 +74,19 @@ class BinaryTreeTest {
         node2.addRightChild(node4);
         root.addLeftChild(node1);
         root.addRightChild(node2);
+        BinaryTree<Integer> tree = new BinaryTree<>(root);
+
+        // Act
+        List<Integer> inOrderElements = tree.inOrder();
+        List<Integer> expected = Arrays.asList(1, 3, 4, 5, 6, 6, 7);
+
+        // Assert
+        for (int i = 0; i < inOrderElements.size(); i++) {
+            if (!inOrderElements.get(i).equals(expected.get(i))) {
+                fail("List is: " + inOrderElements.toString() + " expected is: " + expected.toString());
+            }
+        }
+
     }
 
 
