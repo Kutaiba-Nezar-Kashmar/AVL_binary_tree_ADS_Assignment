@@ -23,11 +23,11 @@ public class BinaryTreeNode<T> {
         this.element = element;
     }
 
-    public void setLeftChild(BinaryTreeNode<T> leftChild) {
+    public void addLeftChild(BinaryTreeNode<T> leftChild) {
         this.leftChild = leftChild;
     }
 
-    public void setRightChild(BinaryTreeNode<T> rightChild) {
+    public void addRightChild(BinaryTreeNode<T> rightChild) {
         this.rightChild = rightChild;
     }
 }
