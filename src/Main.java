@@ -26,11 +26,11 @@ public class Main {
         System.out.println(inOrderElements);
 
 
-        BinarySearchTreeNode<Integer> searchRoot = new BinarySearchTreeNode<>(7);
+        BinarySearchTreeNode<Integer> searchRoot = new BinarySearchTreeNode<>(10);
         BinarySearchTreeNode<Integer> bstnode1 = new BinarySearchTreeNode<>(3);
         BinarySearchTreeNode<Integer> bstnode3 = new BinarySearchTreeNode<>(1);
-        BinarySearchTreeNode<Integer> bstnode2 = new BinarySearchTreeNode<>(5);
-        BinarySearchTreeNode<Integer> bstnode4 = new BinarySearchTreeNode<>(6);
+        BinarySearchTreeNode<Integer> bstnode2 = new BinarySearchTreeNode<>(11);
+        BinarySearchTreeNode<Integer> bstnode4 = new BinarySearchTreeNode<>(4);
 
         bstnode1.addLeftChild(bstnode3);
         bstnode2.addRightChild(bstnode4);
