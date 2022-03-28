@@ -4,6 +4,11 @@ public class BinarySearchTreeNode<T extends Comparable<T>> extends BinaryTreeNod
   private BinaryTreeNode<T> leftChild;
   private BinaryTreeNode<T> rightChild;
 
+  public BinarySearchTreeNode(T element)
+  {
+    super(element);
+  }
+
   @Override public T getElement()
   {
     return element;
@@ -14,7 +19,7 @@ public class BinarySearchTreeNode<T extends Comparable<T>> extends BinaryTreeNod
     this.element = element;
   }
 
-  @Override public void setLeftChild(BinaryTreeNode<T> newLeftChild)
+  @Override public void addLeftChild(BinaryTreeNode<T> newLeftChild)
   {
     if (newLeftChild.getElement().compareTo(element) < 0)
     {
@@ -24,12 +29,12 @@ public class BinarySearchTreeNode<T extends Comparable<T>> extends BinaryTreeNod
       }
       else
       {
-        leftChild.setLeftChild(newLeftChild);
+        leftChild.addLeftChild(newLeftChild);
       }
     }
   }
 
-  @Override public void setRightChild(BinaryTreeNode<T> newRightChild)
+  @Override public void addRightChild(BinaryTreeNode<T> newRightChild)
   {
     if (newRightChild.getElement().compareTo(element) < 0)
     {
@@ -39,7 +44,7 @@ public class BinarySearchTreeNode<T extends Comparable<T>> extends BinaryTreeNod
       }
       else
       {
-        rightChild.setLeftChild(newRightChild);
+        rightChild.addRightChild(newRightChild);
       }
     }
   }
