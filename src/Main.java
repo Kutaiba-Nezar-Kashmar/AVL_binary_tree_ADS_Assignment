@@ -25,6 +25,21 @@ public class Main {
         List<Integer> inOrderElements = tree.inOrder();
         System.out.println(inOrderElements);
 
+
+        BinarySearchTreeNode<Integer> searchRoot = new BinarySearchTreeNode<>(7);
+        BinarySearchTreeNode<Integer> bstnode1 = new BinarySearchTreeNode<>(3);
+        BinarySearchTreeNode<Integer> bstnode3 = new BinarySearchTreeNode<>(1);
+        BinarySearchTreeNode<Integer> bstnode2 = new BinarySearchTreeNode<>(5);
+        BinarySearchTreeNode<Integer> bstnode4 = new BinarySearchTreeNode<>(6);
+
+        bstnode1.addLeftChild(bstnode3);
+        bstnode2.addRightChild(bstnode4);
+
+        searchRoot.addLeftChild(bstnode1);
+        searchRoot.addRightChild(bstnode2);
+        BinarySearchTree<Integer> binarySearchTree = new BinarySearchTree<>(searchRoot);
+        System.out.println(binarySearchTree.findMin());
+
         int height = tree.height();
         System.out.println(height);
     }
