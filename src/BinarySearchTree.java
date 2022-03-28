@@ -1,6 +1,7 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
-
-
     private BinarySearchTreeNode<T> root;
 
 
@@ -45,8 +46,30 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
     }
 
     public boolean containsElement(T element) {
-        //TODO: implement
-        return false;
+        List<T> elements = inOrder();
+        return elements.contains(element);
+    }
+
+    @Override
+    public List<T> inOrder() {
+
+        List<T> elements = new ArrayList<>();
+        inOrderHelper(elements, this.root);
+        return elements;
+    }
+
+    private void inOrderHelper(List<T> elements, BinaryTreeNode<T> node) {
+        if (node == null) {
+            return;
+        }
+
+        inOrderHelper(elements, node.getLeftChild());
+        visitNode(elements, node);
+        inOrderHelper(elements, node.getRightChild());
+    }
+
+    private void visitNode(List<T> elements, BinaryTreeNode<T> node) {
+        elements.add(node.getElement());
     }
 
     public void rebalance() {

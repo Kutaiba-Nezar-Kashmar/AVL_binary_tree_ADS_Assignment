@@ -41,5 +41,7 @@ public class Main {
         BinaryTreePrint print = new BinaryTreePrint();
 
         System.out.println(binarySearchTree.findMin());
+        System.out.println(binarySearchTree.containsElement(11));
+        System.out.println(binarySearchTree.containsElement(0));
     }
 }
