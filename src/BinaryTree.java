@@ -4,7 +4,6 @@ import java.util.List;
 public class BinaryTree<T> {
     private BinaryTreeNode<T> root;
 
-
     public BinaryTree() {
     }
 
@@ -30,14 +29,68 @@ public class BinaryTree<T> {
         return elements;
     }
 
-    public void inOrderHelper(List<T> elements, BinaryTreeNode<T> node){
-        if (node == null){
+    public List<T> preOrder() {
+        List<T> elements = new ArrayList<>();
+        preOrderHelper(elements, this.root);
+        return elements;
+    }
+
+    public List<T> postOrder() {
+        List<T> elements = new ArrayList<>();
+        postOrderHelper(elements, this.root);
+        return elements;
+    }
+
+    public int height() {
+        if (this.root == null) {
+            return -1;
+        }
+
+        return heightHelper(this.root, -1) + 1;
+    }
+
+    private int heightHelper(BinaryTreeNode<T> node, int currentHeight) {
+        int leftChildHeight = currentHeight;
+        int rightChildHeight = currentHeight;
+
+        if (node.getLeftChild() != null) {
+            leftChildHeight = heightHelper(node.getLeftChild(), currentHeight + 1);
+        }
+
+        if (node.getRightChild() != null) {
+            rightChildHeight = heightHelper(node.getRightChild(), currentHeight + 1);
+        }
+        return Math.max(leftChildHeight, rightChildHeight);
+    }
+
+    private void inOrderHelper(List<T> elements, BinaryTreeNode<T> node) {
+        if (node == null) {
             return;
         }
 
         inOrderHelper(elements, node.getLeftChild());
         visitNode(elements, node);
         inOrderHelper(elements, node.getRightChild());
+    }
+
+    private void preOrderHelper(List<T> elements, BinaryTreeNode<T> node) {
+        if (node == null) {
+            return;
+        }
+
+        visitNode(elements, node);
+        preOrderHelper(elements, node.getLeftChild());
+        preOrderHelper(elements, node.getRightChild());
+    }
+
+    private void postOrderHelper(List<T> elements, BinaryTreeNode<T> node) {
+        if (node == null) {
+            return;
+        }
+
+        postOrderHelper(elements, node.getLeftChild());
+        postOrderHelper(elements, node.getRightChild());
+        visitNode(elements, node);
     }
 
 
