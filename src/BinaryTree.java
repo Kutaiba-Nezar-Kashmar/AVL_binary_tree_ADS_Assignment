@@ -4,6 +4,10 @@ import java.util.List;
 public class BinaryTree<T> {
     private BinaryTreeNode<T> root;
 
+
+    public BinaryTree() {
+    }
+
     public BinaryTree(BinaryTreeNode<T> root) {
         this.root = root;
     }
