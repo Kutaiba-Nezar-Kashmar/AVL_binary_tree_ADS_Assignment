@@ -10,13 +10,13 @@ public class Main {
         BinaryTreeNode<Integer> node5 = new BinaryTreeNode<>(6);
         BinaryTreeNode<Integer> node6 = new BinaryTreeNode<>(7);
 
-        node5.setRightChild(node6);
-        node3.setRightChild(node5);
-        node1.setLeftChild(node3);
-        node2.setRightChild(node4);
+        node5.addRightChild(node6);
+        node3.addRightChild(node5);
+        node1.addLeftChild(node3);
+        node2.addRightChild(node4);
 
-        root.setLeftChild(node1);
-        root.setRightChild(node2);
+        root.addLeftChild(node1);
+        root.addRightChild(node2);
 
         BinaryTreePrint print = new BinaryTreePrint();
         print.printTree(root);
