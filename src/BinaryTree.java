@@ -30,6 +30,11 @@ public class BinaryTree<T> {
         return elements;
     }
 
+    public int size() {
+        List<T> elements = inOrder();
+        return elements.size();
+    }
+
     public List<T> preOrder() {
         List<T> elements = new ArrayList<>();
         preOrderHelper(elements, this.root);
