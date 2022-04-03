@@ -14,8 +14,26 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
     }
 
     public boolean insert(T element) {
-        //TODO: implement
-        return false;
+        if (this.containsElement(element)) {return false;}
+        BinarySearchTreeNode<T> z = new BinarySearchTreeNode<>(element);
+        BinaryTreeNode<T> y = null;
+        BinaryTreeNode<T> x = root;
+        while (x != null){
+            y = x;
+            x = z.getElement().compareTo(x.getElement()) < 0 ? x.getLeftChild() : x.getRightChild();
+        }
+        if (y == null){
+            root = z;
+            return true;
+        }
+        else if (z.getElement().compareTo(y.getElement()) < 0){
+            y.addLeftChild(z);
+            return true;
+        }
+        else {
+            y.addRightChild(z);
+            return true;
+        }
     }
 
     public boolean removeElement(T element) {
@@ -49,6 +67,7 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
         List<T> elements = inOrder();
         return elements.contains(element);
     }
+
 
     @Override
     public List<T> inOrder() {

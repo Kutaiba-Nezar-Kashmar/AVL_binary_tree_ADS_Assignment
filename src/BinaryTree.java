@@ -3,6 +3,7 @@ import java.util.List;
 
 public class BinaryTree<T> {
     private BinaryTreeNode<T> root;
+    private int size;
 
     public BinaryTree() {
     }
