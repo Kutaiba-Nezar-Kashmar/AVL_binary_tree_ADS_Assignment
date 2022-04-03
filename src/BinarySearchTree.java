@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
-    private BinarySearchTreeNode<T> root;
+    private BinaryTreeNode<T> root;
 
 
     public BinarySearchTree(BinarySearchTreeNode<T> root) {
@@ -36,13 +36,92 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
         }
     }
 
+
+
     public boolean removeElement(T element) {
-        //TODO: implement
-        return false;
+        BinaryTreeNode<T> focusNode = root;
+        BinaryTreeNode<T> parent = root;
+
+        boolean isItALEftChild = true;
+
+        while (!focusNode.getElement().equals(element)){
+            parent = focusNode;
+
+            if (element.compareTo(focusNode.getElement()) < 0 ) {
+                isItALEftChild = true;
+
+                focusNode = focusNode.getLeftChild();
+            }else {
+                isItALEftChild = false;
+                focusNode = focusNode.getRightChild();
+            }
+
+            if(focusNode == null){
+                return false;
+            }
+
+            if(focusNode.getLeftChild() == null && focusNode.getRightChild() == null){
+                if (focusNode == root){
+                    root = null;
+                } else if (isItALEftChild){
+                    parent.addLeftChild(null);
+                } else {
+                    parent.addRightChild(null);
+                }
+            }
+
+            else if (focusNode.getRightChild() == null){
+                if (focusNode == root)
+                    root =focusNode.getLeftChild();
+
+                else if (isItALEftChild)
+                    parent.addLeftChild(focusNode.getLeftChild());
+                else parent.addRightChild(focusNode.getLeftChild());
+            }
+            else if (focusNode.getLeftChild() == null){
+                if(focusNode == root)
+                    root = focusNode.getRightChild();
+                else if(isItALEftChild)
+                    parent.addLeftChild(focusNode.getRightChild());
+                else
+                    parent.addRightChild(focusNode.getLeftChild());
+            }
+            else {
+                BinaryTreeNode replacement = getReplacementNode(focusNode);
+
+                if(focusNode == root)
+                    root = replacement;
+                else if (isItALEftChild)
+                    parent.addLeftChild(replacement);
+                else
+                    parent.addRightChild(replacement);
+                replacement.addLeftChild(focusNode.getLeftChild());
+            }
+        }
+
+        return true;
+    }
+
+    public BinaryTreeNode<T> getReplacementNode(BinaryTreeNode<T> replaced){
+        BinaryTreeNode<T> replacementParent = replaced;
+        BinaryTreeNode<T> replacement = replaced;
+
+        BinaryTreeNode<T> focusNode = replaced.getRightChild();
+        while (focusNode != null){
+
+            replacementParent = replacement;
+            replacement = focusNode;
+            focusNode = focusNode.getLeftChild();
+        }
+        if (replacement != replaced.getRightChild()){
+            replacementParent.addLeftChild(replacement.getRightChild());
+            replacement.addRightChild(replaced.getRightChild());
+        }
+        return replacement;
     }
 
     public T findMin() {
-        BinarySearchTreeNode<T> node;
+        BinaryTreeNode<T> node;
         node = root;
 
         while (node.getLeftChild() != null) {
@@ -53,7 +132,7 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
     }
 
     public T findMax() {
-        BinarySearchTreeNode<T> node;
+        BinaryTreeNode<T> node;
         node = root;
 
         while (node.getRightChild() != null) {
