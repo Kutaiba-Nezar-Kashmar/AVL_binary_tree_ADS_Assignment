@@ -1,6 +1,6 @@
 public class BinarySearchTreeNode<T extends Comparable<T>> extends BinaryTreeNode<T> {
-    private BinaryTreeNode<T> leftChild;
-    private BinaryTreeNode<T> rightChild;
+    private BinarySearchTreeNode<T> leftChild;
+    private BinarySearchTreeNode<T> rightChild;
 
     public BinarySearchTreeNode(T element) {
         super(element);
@@ -16,41 +16,42 @@ public class BinarySearchTreeNode<T extends Comparable<T>> extends BinaryTreeNod
         super.setElement(element);
     }
 
-    @Override
-    public void addLeftChild(BinaryTreeNode<T> newLeftChild) {
-        // Check if element is less than left child
-        BinarySearchTreeNode<T> node = this;
-
-        if (leftChild == null) {
-            leftChild = newLeftChild;
+    public void addLeftChild(BinarySearchTreeNode<T> newLeftChild) {
+        if (newLeftChild == null) {
             return;
         }
 
+        BinarySearchTreeNode<T> node = this;
+        // Check if element is less than left child
         if (newLeftChild.getElement().compareTo(super.getElement()) < 0) {
+            if (leftChild == null) {
+                leftChild = newLeftChild;
+                return;
+            }
             leftChild.addLeftChild(newLeftChild);
         }
     }
 
-    @Override
-    public void addRightChild(BinaryTreeNode<T> newRightChild) {
-        if (rightChild == null) {
-            rightChild = newRightChild;
+    public void addRightChild(BinarySearchTreeNode<T> newRightChild) {
+        if (newRightChild == null) {
             return;
         }
 
-        if (newRightChild.getElement().compareTo(super.getElement()) < 0) {
+        if (newRightChild.getElement().compareTo(super.getElement()) >= 0) {
+            if (rightChild == null) {
+                rightChild = newRightChild;
+                return;
+            }
             rightChild.addRightChild(newRightChild);
         }
     }
 
 
-    @Override
-    public BinaryTreeNode<T> getLeftChild() {
+    public BinarySearchTreeNode<T> leftChild() {
         return leftChild;
     }
 
-    @Override
-    public BinaryTreeNode<T> getRightChild() {
+    public BinarySearchTreeNode<T> rightChild() {
         return rightChild;
     }
 }

@@ -5,7 +5,7 @@ public class BinaryTreePrint   {
 	BinaryTreeNode<Integer> root;
 
 	/*
-	 * This method requires that there is a class BinaryTreeNode 
+	 * This method requires that there is a class BinaryTreeNode
 	 * and that the field "root" is initialized 
 	 * as well as methods to set and get nodes and values:
 	 * E getElement() // return the element stored in the node
@@ -17,6 +17,12 @@ public class BinaryTreePrint   {
 	 */
 
 	public void printTree(BinaryTreeNode root) {
+		ArrayList<BinaryTreeNode> parent = new ArrayList<BinaryTreeNode>();
+		parent.add(root);
+		printT(parent, 64);
+	}
+
+	public void printSearchTree(BinarySearchTreeNode<Integer> root) {
 		ArrayList<BinaryTreeNode> parent = new ArrayList<BinaryTreeNode>();
 		parent.add(root);
 		printT(parent, 64);

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class BinaryTree<T> {
+public class BinaryTree<T extends Comparable<T>> {
     private BinaryTreeNode<T> root;
     private int size;
 
@@ -48,26 +48,10 @@ public class BinaryTree<T> {
     }
 
     public int height() {
-        if (this.root == null) {
-            return -1;
-        }
-
-        return heightHelper(this.root, -1) + 1;
+        TreeUtils<T> util = new TreeUtils<>();
+        return util.getHeight(this.root);
     }
 
-    private int heightHelper(BinaryTreeNode<T> node, int currentHeight) {
-        int leftChildHeight = currentHeight;
-        int rightChildHeight = currentHeight;
-
-        if (node.getLeftChild() != null) {
-            leftChildHeight = heightHelper(node.getLeftChild(), currentHeight + 1);
-        }
-
-        if (node.getRightChild() != null) {
-            rightChildHeight = heightHelper(node.getRightChild(), currentHeight + 1);
-        }
-        return Math.max(leftChildHeight, rightChildHeight);
-    }
 
     private void inOrderHelper(List<T> elements, BinaryTreeNode<T> node) {
         if (node == null) {

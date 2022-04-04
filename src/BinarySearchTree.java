@@ -2,8 +2,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
-    private BinaryTreeNode<T> root;
-
+    private BinarySearchTreeNode<T> root;
+    private TreeUtils<T> util = new TreeUtils<>();
 
     public BinarySearchTree(BinarySearchTreeNode<T> root) {
         this.root = root;
@@ -13,130 +13,129 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
 
     }
 
+    public BinarySearchTreeNode<T> root() {
+        return root;
+    }
+
     public boolean insert(T element) {
-        if (this.containsElement(element)) {return false;}
-        BinarySearchTreeNode<T> z = new BinarySearchTreeNode<>(element);
-        BinaryTreeNode<T> y = null;
-        BinaryTreeNode<T> x = root;
-        while (x != null){
-            y = x;
-            x = z.getElement().compareTo(x.getElement()) < 0 ? x.getLeftChild() : x.getRightChild();
+        if (this.containsElement(element)) {
+            return false;
         }
-        if (y == null){
+        BinarySearchTreeNode<T> z = new BinarySearchTreeNode<>(element);
+        BinarySearchTreeNode<T> y = null;
+        BinarySearchTreeNode<T> x = root;
+        while (x != null) {
+            y = x;
+            x = z.getElement().compareTo(x.getElement()) < 0 ? x.leftChild() : x.rightChild();
+        }
+        if (y == null) {
             root = z;
             return true;
-        }
-        else if (z.getElement().compareTo(y.getElement()) < 0){
+        } else if (z.getElement().compareTo(y.getElement()) < 0) {
             y.addLeftChild(z);
             return true;
-        }
-        else {
+        } else {
             y.addRightChild(z);
             return true;
         }
     }
 
 
-
     public boolean removeElement(T element) {
-        BinaryTreeNode<T> focusNode = root;
-        BinaryTreeNode<T> parent = root;
+        BinarySearchTreeNode<T> focusNode = root;
+        BinarySearchTreeNode<T> parent = root;
 
         boolean isItALEftChild = true;
 
-        while (!focusNode.getElement().equals(element)){
+        while (!focusNode.getElement().equals(element)) {
             parent = focusNode;
 
-            if (element.compareTo(focusNode.getElement()) < 0 ) {
+            if (element.compareTo(focusNode.getElement()) < 0) {
                 isItALEftChild = true;
 
-                focusNode = focusNode.getLeftChild();
-            }else {
+                focusNode = focusNode.leftChild();
+            } else {
                 isItALEftChild = false;
-                focusNode = focusNode.getRightChild();
+                focusNode = focusNode.rightChild();
             }
 
-            if(focusNode == null){
+            if (focusNode == null) {
                 return false;
             }
 
-            if(focusNode.getLeftChild() == null && focusNode.getRightChild() == null){
-                if (focusNode == root){
+            if (focusNode.leftChild() == null && focusNode.rightChild() == null) {
+                if (focusNode == root) {
                     root = null;
-                } else if (isItALEftChild){
+                } else if (isItALEftChild) {
                     parent.addLeftChild(null);
                 } else {
                     parent.addRightChild(null);
                 }
-            }
-
-            else if (focusNode.getRightChild() == null){
+            } else if (focusNode.rightChild() == null) {
                 if (focusNode == root)
-                    root =focusNode.getLeftChild();
+                    root = focusNode.leftChild();
 
                 else if (isItALEftChild)
-                    parent.addLeftChild(focusNode.getLeftChild());
-                else parent.addRightChild(focusNode.getLeftChild());
-            }
-            else if (focusNode.getLeftChild() == null){
-                if(focusNode == root)
-                    root = focusNode.getRightChild();
-                else if(isItALEftChild)
-                    parent.addLeftChild(focusNode.getRightChild());
+                    parent.addLeftChild(focusNode.leftChild());
+                else parent.addRightChild(focusNode.leftChild());
+            } else if (focusNode.leftChild() == null) {
+                if (focusNode == root)
+                    root = focusNode.rightChild();
+                else if (isItALEftChild)
+                    parent.addLeftChild(focusNode.rightChild());
                 else
-                    parent.addRightChild(focusNode.getLeftChild());
-            }
-            else {
-                BinaryTreeNode replacement = getReplacementNode(focusNode);
+                    parent.addRightChild(focusNode.leftChild());
+            } else {
+                BinarySearchTreeNode<T> replacement = getReplacementNode(focusNode);
 
-                if(focusNode == root)
+                if (focusNode == root)
                     root = replacement;
                 else if (isItALEftChild)
                     parent.addLeftChild(replacement);
                 else
                     parent.addRightChild(replacement);
-                replacement.addLeftChild(focusNode.getLeftChild());
+                replacement.addLeftChild(focusNode.leftChild());
             }
         }
 
         return true;
     }
 
-    public BinaryTreeNode<T> getReplacementNode(BinaryTreeNode<T> replaced){
-        BinaryTreeNode<T> replacementParent = replaced;
-        BinaryTreeNode<T> replacement = replaced;
+    public BinarySearchTreeNode<T> getReplacementNode(BinarySearchTreeNode<T> replaced) {
+        BinarySearchTreeNode<T> replacementParent = replaced;
+        BinarySearchTreeNode<T> replacement = replaced;
 
-        BinaryTreeNode<T> focusNode = replaced.getRightChild();
-        while (focusNode != null){
+        BinarySearchTreeNode<T> focusNode = replaced.rightChild();
+        while (focusNode != null) {
 
             replacementParent = replacement;
             replacement = focusNode;
-            focusNode = focusNode.getLeftChild();
+            focusNode = focusNode.leftChild();
         }
-        if (replacement != replaced.getRightChild()){
-            replacementParent.addLeftChild(replacement.getRightChild());
-            replacement.addRightChild(replaced.getRightChild());
+        if (replacement != replaced.rightChild()) {
+            replacementParent.addLeftChild(replacement.leftChild());
+            replacement.addRightChild(replaced.rightChild());
         }
         return replacement;
     }
 
     public T findMin() {
-        BinaryTreeNode<T> node;
+        BinarySearchTreeNode<T> node;
         node = root;
 
-        while (node.getLeftChild() != null) {
-            node = (BinarySearchTreeNode<T>) node.getLeftChild();
+        while (node.leftChild() != null) {
+            node = node.leftChild();
         }
 
         return node.getElement();
     }
 
     public T findMax() {
-        BinaryTreeNode<T> node;
+        BinarySearchTreeNode<T> node;
         node = root;
 
-        while (node.getRightChild() != null) {
-            node = (BinarySearchTreeNode<T>) node.getRightChild();
+        while (node.rightChild() != null) {
+            node = node.rightChild();
         }
 
         return node.getElement();
@@ -156,24 +155,111 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
         return elements;
     }
 
-    private void inOrderHelper(List<T> elements, BinaryTreeNode<T> node) {
+    private void inOrderHelper(List<T> elements, BinarySearchTreeNode<T> node) {
         if (node == null) {
             return;
         }
 
-        inOrderHelper(elements, node.getLeftChild());
+        inOrderHelper(elements, node.leftChild());
         visitNode(elements, node);
-        inOrderHelper(elements, node.getRightChild());
+        inOrderHelper(elements, node.rightChild());
     }
 
     private void visitNode(List<T> elements, BinaryTreeNode<T> node) {
         elements.add(node.getElement());
     }
 
-    public void rebalance() {
-        //TODO: implement
+    private BinarySearchTreeNode<T> rebalance(BinarySearchTreeNode<T> node) {
+        BalanceCase balance = getBalance(node);
 
+        if (balance == BalanceCase.BALANCED){
+            return node;
+        }
+
+        if (balance == BalanceCase.LEFT_LEFT_HEAVY) {    // Case 1
+            // Rotate right
+            node = rotateRight(node);
+        } else if (balance == BalanceCase.LEFT_RIGHT_HEAVY) {                                // Case 2
+            // Rotate left-right
+            node.addLeftChild(rotateLeft(node.leftChild()));
+            node = rotateRight(node);
+        } else if (balance == BalanceCase.RIGHT_RIGHT_HEAVY) {    // Case 3
+            // Rotate left
+            node = rotateLeft(node);
+        } else {                                 // Case 4
+            // Rotate right-left
+            node.addRightChild(rotateRight(node.rightChild()));
+            node = rotateLeft(node);
+        }
+
+        return node;
     }
 
+
+    public void reBalance() {
+        root = rebalance(root);
+    }
+
+    private BinarySearchTreeNode<T> rotateRight(BinarySearchTreeNode<T> node) {
+        BinarySearchTreeNode<T> leftChild = node.leftChild();
+
+        node.addLeftChild(leftChild.rightChild());
+        leftChild.addRightChild(node);
+
+        return leftChild;
+    }
+
+    private BinarySearchTreeNode<T> rotateLeft(BinarySearchTreeNode<T> node) {
+        BinarySearchTreeNode<T> rightChild = node.rightChild();
+
+        node.addRightChild(rightChild.leftChild());
+        rightChild.addLeftChild(node);
+
+        return rightChild;
+    }
+
+    /**
+     * Calculates the AVL balance state of the node
+     */
+    private BalanceCase getBalance(BinarySearchTreeNode<T> node) {
+        int balance = getBalanceFactor(node);
+
+        if (balance < -1) {
+            int leftChildBalance = getBalanceFactor(node.leftChild());
+            if (leftChildBalance >= 1) {
+                return BalanceCase.LEFT_RIGHT_HEAVY;
+            } else {
+                return BalanceCase.LEFT_LEFT_HEAVY;
+            }
+        } else if (balance > 1) {
+            int rightChildBalance = getBalanceFactor(node.rightChild());
+            if (rightChildBalance >= 1) {
+                return BalanceCase.RIGHT_RIGHT_HEAVY;
+            } else {
+                return BalanceCase.RIGHT_LEFT_HEAVY;
+            }
+        }
+
+        return BalanceCase.BALANCED;
+    }
+
+    /**
+     * Calculates the balance factor of a node
+     */
+    private int getBalanceFactor(BinarySearchTreeNode<T> node) {
+        int balance = 0;
+        int rightChildHeight = -1;
+        int leftChildHeight = -1;
+
+        if (node.rightChild() != null) {
+            rightChildHeight = util.getBinarySearchTreeHeight(node.rightChild());
+        }
+
+        if (node.leftChild() != null) {
+            leftChildHeight = util.getBinarySearchTreeHeight(node.leftChild());
+        }
+
+        return rightChildHeight - leftChildHeight;
+    }
 
 }

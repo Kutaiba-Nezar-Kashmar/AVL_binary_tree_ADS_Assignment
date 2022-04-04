@@ -1,0 +1,7 @@
+public enum BalanceCase {
+    LEFT_LEFT_HEAVY,
+    LEFT_RIGHT_HEAVY,
+    RIGHT_RIGHT_HEAVY,
+    RIGHT_LEFT_HEAVY,
+    BALANCED
+}
