@@ -8,7 +8,12 @@ public class BinaryTree<T> {
     public BinaryTree() {
     }
 
+
     public BinaryTree(BinaryTreeNode<T> root) {
+        if (root == null)
+        {
+            throw new IllegalArgumentException("root can't be null");
+        }
         this.root = root;
     }
 
