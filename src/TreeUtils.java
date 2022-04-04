@@ -1,4 +1,9 @@
 public class TreeUtils<T extends Comparable<T>> {
+
+
+
+
+
     public int getBinarySearchTreeHeight(BinarySearchTreeNode<T> node) {
         if (node == null) {
             return -1;
@@ -35,11 +40,11 @@ public class TreeUtils<T extends Comparable<T>> {
         int rightChildHeight = currentHeight;
 
         if (node.leftChild() != null) {
-            leftChildHeight = heightHelper(node.leftChild(), currentHeight + 1);
+            leftChildHeight = binarySearchTreeHeightHelper(node.leftChild(), currentHeight + 1);
         }
 
         if (node.rightChild() != null) {
-            rightChildHeight = heightHelper(node.rightChild(), currentHeight + 1);
+            rightChildHeight = binarySearchTreeHeightHelper(node.rightChild(), currentHeight + 1);
         }
         return Math.max(leftChildHeight, rightChildHeight);
     }

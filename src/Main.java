@@ -2,6 +2,7 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
+/*
 
         BinarySearchTreeNode<Integer> searchRoot = new BinarySearchTreeNode<>(10);
         BinarySearchTreeNode<Integer> bstnode1 = new BinarySearchTreeNode<>(3);
@@ -23,5 +24,23 @@ public class Main {
         print.printTree(binarySearchTree.root());
         binarySearchTree.reBalance();
         print.printTree(binarySearchTree.root());
+
+
+
+*/
+        BinarySearchTreeNode<Integer> root = new BinarySearchTreeNode<>(4);
+        BinarySearchTreePrint print = new BinarySearchTreePrint();
+        // Act
+        BinarySearchTree<Integer> tree = new BinarySearchTree<>(root);
+        tree.insert(5);
+        tree.insert(3);
+        tree.insert(6);
+        tree.insert(7);
+        tree.insert(8);
+        tree.insert(9);
+
+        print.printTree(tree.root());
+        System.out.println(tree.height());
+
     }
 }

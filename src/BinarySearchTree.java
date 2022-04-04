@@ -13,6 +13,17 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
 
     }
 
+    @Override
+    public int size() {
+        List<T> elements = inOrder();
+        return elements.size();
+    }
+
+    @Override
+    public int height() {
+        return util.getBinarySearchTreeHeight(root);
+    }
+
     public BinarySearchTreeNode<T> root() {
         return root;
     }
@@ -21,21 +32,22 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
         if (this.containsElement(element)) {
             return false;
         }
-        BinarySearchTreeNode<T> z = new BinarySearchTreeNode<>(element);
-        BinarySearchTreeNode<T> y = null;
-        BinarySearchTreeNode<T> x = root;
-        while (x != null) {
-            y = x;
-            x = z.getElement().compareTo(x.getElement()) < 0 ? x.leftChild() : x.rightChild();
+        BinarySearchTreeNode<T> newNode = new BinarySearchTreeNode<>(element);
+        BinarySearchTreeNode<T> visitedNode = null;
+        BinarySearchTreeNode<T> currentRoot = root;
+        while (currentRoot != null) {
+            visitedNode = currentRoot;
+            currentRoot = newNode.getElement().compareTo(currentRoot.getElement()) < 0
+                    ? currentRoot.leftChild() : currentRoot.rightChild();
         }
-        if (y == null) {
-            root = z;
+        if (visitedNode == null) {
+            root = newNode;
             return true;
-        } else if (z.getElement().compareTo(y.getElement()) < 0) {
-            y.addLeftChild(z);
+        } else if (newNode.getElement().compareTo(visitedNode.getElement()) < 0) {
+            visitedNode.addLeftChild(newNode);
             return true;
         } else {
-            y.addRightChild(z);
+            visitedNode.addRightChild(newNode);
             return true;
         }
     }
@@ -165,7 +177,7 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
         inOrderHelper(elements, node.rightChild());
     }
 
-    private void visitNode(List<T> elements, BinaryTreeNode<T> node) {
+    private void visitNode(List<T> elements, BinarySearchTreeNode<T> node) {
         elements.add(node.getElement());
     }
 
