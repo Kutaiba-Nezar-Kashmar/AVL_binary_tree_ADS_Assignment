@@ -40,7 +40,6 @@ public class Main {
         tree.insert(9);
 
         print.printTree(tree.root());
-        System.out.println(tree.height());
 
     }
 }

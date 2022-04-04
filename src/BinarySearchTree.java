@@ -4,8 +4,22 @@ import java.util.List;
 public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
     private BinarySearchTreeNode<T> root;
     private TreeUtils<T> util = new TreeUtils<>();
+    private int size = 0;
 
     public BinarySearchTree(BinarySearchTreeNode<T> root) {
+        if (root == null) {
+            throw new IllegalArgumentException();
+        }
+        this.root = root;
+        size++;
+    }
+
+    public void setRoot(BinarySearchTreeNode<T> root) {
+        BinarySearchTreeNode<T> currentRoot = this.root;
+        if (this.root == null) {
+            size++;
+        }
+
         this.root = root;
     }
 
@@ -13,10 +27,12 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
 
     }
 
+    public boolean isEmpty(){
+        return size==0 || root == null;
+    }
     @Override
     public int size() {
-        List<T> elements = inOrder();
-        return elements.size();
+        return size;
     }
 
     @Override
@@ -29,9 +45,15 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
     }
 
     public boolean insert(T element) {
+        if (element == null) {
+            return false;
+        }
+
         if (this.containsElement(element)) {
             return false;
         }
+
+        size++;
         BinarySearchTreeNode<T> newNode = new BinarySearchTreeNode<>(element);
         BinarySearchTreeNode<T> visitedNode = null;
         BinarySearchTreeNode<T> currentRoot = root;
@@ -184,7 +206,7 @@ public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree<T> {
     private BinarySearchTreeNode<T> rebalance(BinarySearchTreeNode<T> node) {
         BalanceCase balance = getBalance(node);
 
-        if (balance == BalanceCase.BALANCED){
+        if (balance == BalanceCase.BALANCED) {
             return node;
         }
 

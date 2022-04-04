@@ -123,7 +123,7 @@ class BinarySearchTreeTest {
         root.addRightChild(node1);
         BinarySearchTree<Integer> BinarySearchTree = new BinarySearchTree<>();
         BinarySearchTree.setRoot(root);
-        assertEquals(BinarySearchTree.getRoot(), root);
+        assertEquals(BinarySearchTree.root(), root);
     }
 
     @Test
@@ -149,23 +149,22 @@ class BinarySearchTreeTest {
         BinarySearchTreeNode<Integer> root = new BinarySearchTreeNode<>(5);
         BinarySearchTreeNode<Integer> node1 = new BinarySearchTreeNode<>(8);
 
-        root.addRightChild(node1);
         BinarySearchTree<Integer> BinarySearchTree = new BinarySearchTree<>();
         BinarySearchTree.setRoot(root);
+        BinarySearchTree.insert(root.getElement());
         assertFalse(BinarySearchTree.isEmpty());
     }
 
     @Test
-    void size_sizeOfThree_EqualsThree() {
+    void size_rootWithSingleLeftAndRightChild_ReturnsSizeOfTwo() {
         BinarySearchTreeNode<Integer> root = new BinarySearchTreeNode<>(5);
         BinarySearchTreeNode<Integer> node1 = new BinarySearchTreeNode<>(8);
         BinarySearchTreeNode<Integer> node2 = new BinarySearchTreeNode<>(8);
 
-        root.addRightChild(node1);
-        root.addLeftChild(node2);
-        BinarySearchTree<Integer> BinarySearchTree = new BinarySearchTree<>();
-        BinarySearchTree.setRoot(root);
-        assertEquals(3, BinarySearchTree.size());
+        BinarySearchTree<Integer> BinarySearchTree = new BinarySearchTree<>(root);
+        BinarySearchTree.insert(node1.getElement());
+        BinarySearchTree.insert(node2.getElement());
+        assertEquals(2, BinarySearchTree.size());
     }
 
     @Test
