@@ -7,6 +7,11 @@ public class BinaryTreeNode<T> {
     }
 
     public BinaryTreeNode(T element) {
+
+        if (element == null)
+        {
+            throw new IllegalArgumentException("Element can't be null");
+        }
         this.element = element;
     }
 
